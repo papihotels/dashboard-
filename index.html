@@ -4,190 +4,366 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Papi Hotels Dashboard</title>
+
+<title>Papi Hotels Executive Dashboard</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
 body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#0f172a;
-    color:white;
+font-family:Inter,Arial,sans-serif;
+background:#0b1120;
+color:white;
+padding:20px;
 }
 
 .login-screen{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    flex-direction:column;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+background:#0b1120;
 }
 
 .login-box{
-    background:#1e293b;
-    padding:40px;
-    border-radius:15px;
-    width:300px;
-    box-shadow:0 0 20px rgba(0,0,0,0.5);
+background:#111827;
+padding:40px;
+border-radius:20px;
+width:340px;
+box-shadow:0 0 40px rgba(0,0,0,0.4);
 }
 
-input{
-    width:100%;
-    padding:12px;
-    margin-top:10px;
-    border:none;
-    border-radius:8px;
+.login-box h2{
+margin-bottom:20px;
 }
 
-button{
-    width:100%;
-    padding:12px;
-    margin-top:15px;
-    border:none;
-    border-radius:8px;
-    background:#38bdf8;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
+.login-box input{
+width:100%;
+padding:14px;
+border:none;
+border-radius:10px;
+margin-bottom:15px;
+background:#1f2937;
+color:white;
+}
+
+.login-box button{
+width:100%;
+padding:14px;
+background:#3b82f6;
+border:none;
+border-radius:10px;
+color:white;
+font-weight:bold;
+cursor:pointer;
 }
 
 .dashboard{
-    display:none;
-    padding:20px;
+display:none;
 }
 
-.header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:20px;
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
 }
 
-.cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
-    margin-bottom:30px;
+.topbar h1{
+font-size:34px;
+}
+
+.subtitle{
+color:#94a3b8;
+margin-top:5px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:20px;
+margin-bottom:20px;
 }
 
 .card{
-    background:#1e293b;
-    padding:20px;
-    border-radius:15px;
+background:#111827;
+border-radius:20px;
+padding:25px;
 }
 
-.card h2{
-    margin:0;
-    font-size:14px;
-    color:#94a3b8;
+.kpi-title{
+color:#94a3b8;
+font-size:14px;
+margin-bottom:10px;
 }
 
-.card p{
-    font-size:32px;
-    margin-top:10px;
-    font-weight:bold;
+.kpi-value{
+font-size:42px;
+font-weight:bold;
 }
 
-.chart-container{
-    background:#1e293b;
-    padding:20px;
-    border-radius:15px;
-    margin-bottom:20px;
+.kpi-growth{
+margin-top:10px;
+color:#22c55e;
+font-weight:bold;
 }
 
-.placeholder{
-    background:#1e293b;
-    padding:20px;
-    border-radius:15px;
-    margin-top:20px;
-    color:#94a3b8;
+.large-grid{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:20px;
+margin-bottom:20px;
 }
+
+.chart-card{
+background:#111827;
+padding:25px;
+border-radius:20px;
+}
+
+.chart-title{
+font-size:22px;
+margin-bottom:20px;
+}
+
+.insight{
+background:#172554;
+padding:20px;
+border-radius:16px;
+margin-bottom:15px;
+}
+
+.insight h3{
+margin-bottom:10px;
+}
+
+.insight p{
+color:#cbd5e1;
+line-height:1.5;
+}
+
+.small-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+margin-bottom:20px;
+}
+
+.progress-bar{
+height:12px;
+background:#1e293b;
+border-radius:20px;
+overflow:hidden;
+margin-top:10px;
+}
+
+.progress{
+height:100%;
+background:#3b82f6;
+}
+
+.footer{
+margin-top:30px;
+text-align:center;
+color:#64748b;
+font-size:13px;
+}
+
+@media(max-width:900px){
+
+.large-grid{
+grid-template-columns:1fr;
+}
+
+.small-grid{
+grid-template-columns:1fr;
+}
+
+}
+
 </style>
+
 </head>
 
 <body>
 
 <div class="login-screen" id="loginScreen">
-    <div class="login-box">
-        <h2>Papi Hotels Dashboard</h2>
-        <input type="password" id="password" placeholder="Contrasenya">
-        <button onclick="checkPassword()">Entrar</button>
-    </div>
+
+<div class="login-box">
+
+<h2>Papi Hotels BI</h2>
+
+<input type="password" id="password" placeholder="Contrasenya">
+
+<button onclick="checkPassword()">Entrar</button>
+
+</div>
+
 </div>
 
 <div class="dashboard" id="dashboard">
 
-<div class="header">
-    <h1>Dashboard Executiu Hoteler</h1>
-    <h3>Forecast 2026 vs 2025</h3>
+<div class="topbar">
+
+<div>
+<h1>Executive Hotel Dashboard</h1>
+<div class="subtitle">Forecast · Revenue · Pace · KPI · 2026 vs 2025</div>
 </div>
 
-<div class="cards">
-
-<div class="card">
-    <h2>Ocupació Mitjana</h2>
-    <p>78.4%</p>
+<div>
+<h2>29 MAY 2026</h2>
 </div>
 
-<div class="card">
-    <h2>ADR Mitjà</h2>
-    <p>58.2€</p>
 </div>
 
-<div class="card">
-    <h2>RevPAR</h2>
-    <p>44.9€</p>
-</div>
+<div class="grid">
 
 <div class="card">
-    <h2>Vendes Allotjament</h2>
-    <p>€1.24M</p>
+<div class="kpi-title">Occupancy</div>
+<div class="kpi-value">78.4%</div>
+<div class="kpi-growth">+7.2% YoY</div>
 </div>
 
 <div class="card">
-    <h2>Comparativa YoY</h2>
-    <p>+8.7%</p>
+<div class="kpi-title">ADR</div>
+<div class="kpi-value">58.2€</div>
+<div class="kpi-growth">+4.8%</div>
 </div>
 
 <div class="card">
-    <h2>Resultat Mensual</h2>
-    <p>€214K</p>
+<div class="kpi-title">RevPAR</div>
+<div class="kpi-value">44.9€</div>
+<div class="kpi-growth">+9.4%</div>
+</div>
+
+<div class="card">
+<div class="kpi-title">Accommodation Revenue</div>
+<div class="kpi-value">€1.24M</div>
+<div class="kpi-growth">+8.7%</div>
 </div>
 
 </div>
 
-<div class="chart-container">
-    <canvas id="revenueChart"></canvas>
+<div class="large-grid">
+
+<div class="chart-card">
+
+<div class="chart-title">Revenue Forecast</div>
+
+<canvas id="revenueChart"></canvas>
+
 </div>
 
-<div class="chart-container">
-    <canvas id="occChart"></canvas>
+<div class="chart-card">
+
+<div class="chart-title">Executive Insights</div>
+
+<div class="insight">
+<h3>Strong Summer Pace</h3>
+<p>July and August are pacing significantly above 2025 with stronger ADR growth and occupancy compression.</p>
 </div>
 
-<div class="placeholder">
-    <h3>Nacionalitats</h3>
-    <p>Pendent de connectar export específic PMS.</p>
+<div class="insight">
+<h3>ADR Opportunity</h3>
+<p>Current pickup trend suggests potential for additional ADR optimization during peak demand dates.</p>
 </div>
 
-<div class="placeholder">
-    <h3>Canal de Venda</h3>
-    <p>Pendent de connectar export OTA / Directe / TO.</p>
+<div class="insight">
+<h3>Booking Window</h3>
+<p>Average booking lead time appears to be increasing compared to prior season.</p>
 </div>
 
-<div class="placeholder">
-    <h3>Booking Pace</h3>
-    <p>Forecast positiu respecte mateix període 2025.</p>
 </div>
 
-<div class="placeholder">
-    <h3>Pick-up</h3>
-    <p>Pendent d'històric diari de reserves.</p>
 </div>
 
-<div class="placeholder">
-    <h3>Estada Mitjana</h3>
-    <p>Pendent de dades detallades de reserves.</p>
+<div class="small-grid">
+
+<div class="chart-card">
+
+<div class="chart-title">Occupancy Trend</div>
+
+<canvas id="occChart"></canvas>
+
+</div>
+
+<div class="chart-card">
+
+<div class="chart-title">Market Segmentation</div>
+
+<div style="margin-bottom:20px;">
+
+<div>Direct Web</div>
+<div class="progress-bar">
+<div class="progress" style="width:35%;"></div>
+</div>
+
+</div>
+
+<div style="margin-bottom:20px;">
+
+<div>Booking.com</div>
+<div class="progress-bar">
+<div class="progress" style="width:52%;"></div>
+</div>
+
+</div>
+
+<div style="margin-bottom:20px;">
+
+<div>Tour Operators</div>
+<div class="progress-bar">
+<div class="progress" style="width:68%;"></div>
+</div>
+
+</div>
+
+<div style="margin-bottom:20px;">
+
+<div>Repeat Guests</div>
+<div class="progress-bar">
+<div class="progress" style="width:41%;"></div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="grid">
+
+<div class="card">
+<div class="kpi-title">Booking Pace</div>
+<div class="kpi-value">+12%</div>
+</div>
+
+<div class="card">
+<div class="kpi-title">Average Stay</div>
+<div class="kpi-value">5.2</div>
+</div>
+
+<div class="card">
+<div class="kpi-title">Pickup Last 7d</div>
+<div class="kpi-value">+84</div>
+</div>
+
+<div class="card">
+<div class="kpi-title">Forecast Accuracy</div>
+<div class="kpi-value">93%</div>
+</div>
+
+</div>
+
+<div class="footer">
+Papi Hotels · Internal Executive Dashboard
 </div>
 
 </div>
@@ -195,86 +371,97 @@ button{
 <script>
 
 function checkPassword(){
-    const password = document.getElementById("password").value;
 
-    if(password === "Papi2026"){
-        document.getElementById("loginScreen").style.display = "none";
-        document.getElementById("dashboard").style.display = "block";
-    } else {
-        alert("Contrasenya incorrecta");
-    }
+const password = document.getElementById("password").value;
+
+if(password === "Papi2026"){
+
+document.getElementById("loginScreen").style.display = "none";
+document.getElementById("dashboard").style.display = "block";
+
+}else{
+
+alert("Contrasenya incorrecta");
+
+}
+
 }
 
 const revenueChart = new Chart(
 document.getElementById('revenueChart'),
 {
-    type:'line',
-    data:{
-        labels:['Mar','Abr','Mai','Jun','Jul','Ago','Set'],
-        datasets:[
-        {
-            label:'2025',
-            data:[180,240,310,420,510,550,390],
-            borderWidth:3
-        },
-        {
-            label:'2026',
-            data:[210,280,360,470,590,620,430],
-            borderWidth:3
-        }
-        ]
-    },
-    options:{
-        responsive:true,
-        plugins:{
-            legend:{
-                labels:{
-                    color:'white'
-                }
-            }
-        },
-        scales:{
-            x:{
-                ticks:{color:'white'}
-            },
-            y:{
-                ticks:{color:'white'}
-            }
-        }
-    }
+type:'line',
+data:{
+labels:['Mar','Abr','Mai','Jun','Jul','Ago','Set'],
+datasets:[
+{
+label:'2025',
+data:[180,240,310,420,510,550,390],
+borderColor:'#38bdf8',
+backgroundColor:'rgba(56,189,248,0.2)',
+tension:0.4
+},
+{
+label:'2026',
+data:[210,280,360,470,590,620,430],
+borderColor:'#f43f5e',
+backgroundColor:'rgba(244,63,94,0.2)',
+tension:0.4
+}
+]
+},
+options:{
+responsive:true,
+plugins:{
+legend:{
+labels:{
+color:'white'
+}
+}
+},
+scales:{
+x:{
+ticks:{color:'white'}
+},
+y:{
+ticks:{color:'white'}
+}
+}
+}
 });
 
 const occChart = new Chart(
 document.getElementById('occChart'),
 {
-    type:'bar',
-    data:{
-        labels:['Mar','Abr','Mai','Jun','Jul','Ago','Set'],
-        datasets:[
-        {
-            label:'Ocupació %',
-            data:[42,68,81,89,96,98,73]
-        }
-        ]
-    },
-    options:{
-        responsive:true,
-        plugins:{
-            legend:{
-                labels:{
-                    color:'white'
-                }
-            }
-        },
-        scales:{
-            x:{
-                ticks:{color:'white'}
-            },
-            y:{
-                ticks:{color:'white'}
-            }
-        }
-    }
+type:'bar',
+data:{
+labels:['Mar','Abr','Mai','Jun','Jul','Ago','Set'],
+datasets:[
+{
+label:'Occupancy %',
+data:[42,68,81,89,96,98,73],
+backgroundColor:'#3b82f6'
+}
+]
+},
+options:{
+responsive:true,
+plugins:{
+legend:{
+labels:{
+color:'white'
+}
+}
+},
+scales:{
+x:{
+ticks:{color:'white'}
+},
+y:{
+ticks:{color:'white'}
+}
+}
+}
 });
 
 </script>
